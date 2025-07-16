@@ -1,0 +1,55 @@
+{% extends 'base_tenant.html' %}
+
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+{% endblock styles %}
+
+{% block content %}
+<div class="card">
+  <h2><i class="material-icons-round">palette</i> Theme Settings</h2>
+
+  <div class="theme-options">
+    <label>
+      <input type="radio" name="theme" value="default" checked />
+      <i class="material-icons-round">light_mode</i> Default Mode
+    </label>
+    <label>
+      <input type="radio" name="theme" value="dark" />
+      <i class="material-icons-round">dark_mode</i> Dark Mode
+    </label>
+    <label>
+      <input type="radio" name="theme" value="gradient" />
+      <i class="material-icons-round">gradient</i> Gradient Mode
+    </label>
+  </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+  const themeRadios = document.querySelectorAll('input[name="theme"]');
+  const body = document.body;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme") || "default";
+    applyTheme(savedTheme);
+    const selectedRadio = document.querySelector(`input[value="${savedTheme}"]`);
+    if (selectedRadio) selectedRadio.checked = true;
+  });
+
+  themeRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      applyTheme(radio.value);
+    });
+  });
+
+  function applyTheme(theme) {
+    body.classList.remove("dark-mode", "gradient-mode");
+    if (theme === "dark") body.classList.add("dark-mode");
+    if (theme === "gradient") body.classList.add("gradient-mode");
+    localStorage.setItem("theme", theme);
+  }
+</script>
+{% endblock scripts %}

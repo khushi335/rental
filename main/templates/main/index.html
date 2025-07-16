@@ -1,0 +1,298 @@
+{% extends "base_tenant.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+<!-- Banner Section -->
+<div class="banner_main" id="index">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12 py-1 position-relative">
+            <div class="text-img position-relative">
+               <img src="{% static 'images/1.png' %}" class="img-fluid w-100" alt="Banner Image">
+               <div class="text-overlay position-absolute top-50 start-50 translate-middle text-center text-white">
+                  <h1 class="display-4 fw-bold">ROOM FOR RENT</h1>
+                  <p class="lead">Unlock the Door to Your Perfect Space: Discover Seamless Living with Our Rental System</p>
+                  <a href="#" class="btn btn-light mt-2">Read More</a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<hr class="section-divider">
+
+<!-- Search Section -->
+<div class="container py-4">
+  <form class="row g-2 align-items-center" method="GET" action="{% url 'property_list' %}">
+      <div class="col-md-3">
+          <input class="form-control" type="search" name="q" placeholder="Search title or description..." value="{{ request.GET.q }}">
+      </div>
+      <div class="col-md-2">
+          <input class="form-control" type="text" name="location" placeholder="Location" value="{{ request.GET.location }}">
+      </div>
+      <div class="col-md-2">
+          <select name="category" class="form-select">
+              <option value="">All Categories</option>
+              <option value="room" {% if request.GET.category == 'room' %}selected{% endif %}>Room</option>
+              <option value="flat" {% if request.GET.category == 'flat' %}selected{% endif %}>Flat</option>
+              <option value="apartment" {% if request.GET.category == 'apartment' %}selected{% endif %}>Apartment</option>
+              <option value="commercial" {% if request.GET.category == 'commercial' %}selected{% endif %}>Commercial</option>
+          </select>
+      </div>
+      <div class="col-md-3">
+        <select name="price_range" class="form-select">
+          <option value="">Select Price Range</option>
+          <option value="5000-10000" {% if request.GET.price_range == '5000-10000' %}selected{% endif %}>Rs.5,000 - Rs.10,000</option>
+          <option value="10000-15000" {% if request.GET.price_range == '10000-15000' %}selected{% endif %}>Rs.10,000 - Rs.15,000</option>
+          <option value="20000-30000" {% if request.GET.price_range == '20000-30000' %}selected{% endif %}>Rs.20,000 - Rs.30,000</option>
+          <option value="40000-50000" {% if request.GET.price_range == '40000-50000' %}selected{% endif %}>Rs.40,000 - Rs.50,000</option>
+          <option value="50000-1000000" {% if request.GET.price_range == '50000-1000000' %}selected{% endif %}>Rs.50,000+</option>
+        </select>
+      </div>
+
+      <div class="col-md-1 d-grid">
+          <button class="btn btn-warning w-100" type="submit">Search</button>
+      </div>
+  </form>
+</div>
+<hr class="section-divider">
+
+<!-- How It Works Section -->
+<section class="how-it-works py-5" id="how_it_works">
+  <div class="container">
+    <h2 class="text-center mb-5">How It Works</h2>
+    <div class="row justify-content-center">
+  <div class="col-md-4">
+    <div class="step">
+      <div class="step-icon">
+        <i class="fas fa-search"></i> <!-- Font Awesome Icon -->
+      </div>
+      <h5>1. Browse Listings</h5>
+      <p>Use smart filters to explore rooms, apartments, or houses in your preferred location with ease.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="step">
+      <div class="step-icon">
+        <i class="fas fa-comments"></i>
+      </div>
+      <h5>2. Connect with Owners</h5>
+      <p>Contact property owners directly to get answers, schedule visits, or negotiate terms seamlessly.</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="step">
+      <div class="step-icon">
+        <i class="fas fa-key"></i>
+      </div>
+      <h5>3. Finalize & Move In</h5>
+      <p>Close the deal and move into your perfect space — simple, quick, and hassle-free!</p>
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+<hr class="section-divider">
+
+<!-- About Us Section -->
+<section class="about-us" id="about-us">
+  <div class="about-us-image">
+    <img src="{% static 'images/about_us.jpg' %}" alt="About Us Image">
+  </div>
+  <div class="about-us-content">
+    <h2>About Us</h2>
+    <p>
+      We are dedicated to revolutionizing the way rentals work. Whether you're a landlord listing your space or a tenant finding your next home, our platform offers powerful tools, instant communication, and a seamless experience.
+    </p>
+    <p>
+      Our goal is simple: connect great homes with great people. No hassle. Just home.
+    </p>
+  </div>
+</section>
+<hr class="section-divider">
+
+<!-- Hot Deals Section -->
+<section class="hot-deals py-5 bg-light">
+  <div class="container">
+    <h2 class="section-title text-center mb-4">🔥 Hot Deals</h2>
+
+    {% if hot_deals %}
+    <div class="d-flex flex-nowrap overflow-auto gap-3 px-1 py-3">
+      {% for deal in hot_deals %}
+      <div class="card hot-deal-card flex-shrink-0" style="width: 300px;">
+        <div style="height: 200px; overflow: hidden;">
+          {% if deal.image %}
+          <img src="{{ deal.image.url }}" class="card-img-top h-100 w-100 object-fit-cover" alt="{{ deal.title }}">
+          {% else %}
+          <img src="{% static 'images/default.jpg' %}" class="card-img-top h-100 w-100 object-fit-cover" alt="No Image">
+          {% endif %}
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ deal.title }}</h5>
+          <p class="card-text mb-1"><strong>Location:</strong> {{ deal.location }}</p>
+          <p class="card-text mb-1"><strong>Category:</strong> {{ deal.category }}</p>
+          <p class="card-text mb-1"><strong>Price:</strong> ₹{{ deal.price }}</p>
+          <!-- <p class="card-text small text-muted">{{ deal.description|truncatewords:12 }}</p> -->
+          <a href="{% url 'property_detail' deal.id %}" class="btn btn-sm btn-primary mt-auto">View Details</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-center">No hot deals available at the moment.</p>
+    {% endif %}
+  </div>
+</section>
+<hr class="section-divider">
+
+<!-- Categories Section -->
+ <h3 class="text-center mb-4" id="category">Explore by Category</h3>
+<div class="d-flex flex-wrap justify-content-center gap-3 px-2">
+  {% for category in categories %}
+    <a href="?category={{ category.id }}#category"
+       class="category-pill {% if selected_category and selected_category.id == category.id %}active{% endif %}">
+      🏷️ {{ category.name }}
+    </a>
+  {% endfor %}
+</div>
+<hr class="section-divider">
+
+<!-- Properties under selected category -->
+<section class="filtered-properties py-4">
+  <div class="container">
+    {% if selected_category %}
+      <h4 class="text-center mb-4">{{ selected_category.name }} Properties</h4>
+    {% else %}
+      <h4 class="text-center mb-4">All Available Properties</h4>
+    {% endif %}
+    
+    <div class="row">
+      {% for prop in page_obj %}
+      <div class="col-md-3 mb-4">
+        <div class="card property-card h-100">
+          {% if prop.image %}
+            <img src="{{ prop.image.url }}" class="card-img-top" alt="{{ prop.title }}">
+          {% else %}
+            <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image">
+          {% endif %}
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ prop.category }}</h5>
+            <p class="card-text mb-1"><strong>Location:</strong> {{ prop.location }}</p>
+            <p class="card-text mb-1"><strong>Price:</strong> ₹{{ prop.price }}</p>
+            <p class="card-text text-muted small">{{ prop.description|truncatewords:15 }}</p>
+            <a href="{% url 'property_detail' prop.id %}" class="btn btn-sm btn-primary mt-auto">View Details</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center">No properties found.</p>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="pagination justify-content-center mt-3">
+      {% if page_obj.has_previous %}
+        <a href="?{% if selected_category %}category={{ selected_category.id }}&{% endif %}page={{ page_obj.previous_page_number }}" class="btn btn-outline-primary">Previous</a>
+      {% endif %}
+      <span class="btn btn-light disabled">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a href="?{% if selected_category %}category={{ selected_category.id }}&{% endif %}page={{ page_obj.next_page_number }}" class="btn btn-outline-primary">Next</a>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+<hr class="section-divider">
+
+<!-- Testimonals Section -->
+<section class="testimonials py-5">
+  <div class="container text-center">
+    <h2 class="section-title mb-4">What Our Users Say</h2>
+    <div class="row justify-content-center">
+
+      <div class="col-md-4 mb-4">
+        <div class="testimonial-card p-4">
+          <p class="testimonial-text">“I found the perfect flat within hours using Rental. So simple and user-friendly!”</p>
+          <h6 class="testimonial-author mt-3">— Priya Sharma</h6>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="testimonial-card p-4">
+          <p class="testimonial-text">“Their Find Me Room service saved me days of stress. Highly recommend!”</p>
+          <h6 class="testimonial-author mt-3">— Ankit Verma</h6>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="testimonial-card p-4">
+          <p class="testimonial-text">“I rented my house in just 3 days. The platform is clean and effective.”</p>
+          <h6 class="testimonial-author mt-3">— Kavita Sinha</h6>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<hr class="section-divider">
+
+<!-- Contact Section -->
+<section class="contact-section">
+   <div class="contact-header text-center">
+      <h1>Our Contact</h1>
+      <p class="subtext">GET IN TOUCH</p>
+      <p><span class="highlight">Our Friendly Team</span> would love to hear from you</p>
+   </div>
+
+   <div class="container contact-info">
+      <div class="row">
+         <div class="col-md-4 info-card">
+            <h3><i class="fa-solid fa-location-dot"></i> LOCATION</h3>
+            <p>Balkumari,Lalitpur, Nepal</p>
+         </div>
+         <div class="col-md-4 info-card">
+            <h3><i class="fa-solid fa-phone"></i> PHONE</h3>
+            <p>(+977) 9821837931</p>
+         </div>
+         <div class="col-md-4 info-card">
+            <h3><i class="fa-solid fa-envelope"></i> EMAIL</h3>
+            <p>rental@gmail.com</p>
+         </div>
+      </div>
+   </div>
+
+   <div class="container-fluid form-map-container">
+      <div class="row">
+         <!-- Contact Form -->
+         <div class="col-md-4 contact-form">
+            <form method="POST" action="{% url 'contact' %}">
+               {% csrf_token %}
+               <h2>Get In Touch</h2>
+               <input required type="text" name="name" placeholder="Your Name">
+               <input required type="email" name="email" placeholder="Your Email">
+               <input required type="tel" name="phone" placeholder="Your Phone Number">
+               <textarea required name="message" rows="6" placeholder="Your Message"></textarea>
+               <button type="submit">Send Message</button>
+            </form>
+         </div>
+
+         <!-- Google Map -->
+         <div class="col-md-8 map-container">
+            <h2 class="map-title">Our Location</h2>
+            <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.493602753261!2d85.3377302154204!3d27.672961832180953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190bc33e96a1%3A0x4c2b57b84b1bc5cb!2sBalkumari%2C%20Lalitpur!5e0!3m2!1sen!2snp!4v1719346570000"
+            width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+         </div>
+      </div>
+   </div>
+</section>
+
+
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends "base_tenant.html" %}
+{% load static %}
+{% block content %}
+<div class="container my-5">
+  <h2>Send Message to Landlord</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Send Inquiry</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+:root {
+  --primary: #997A80;
+  --accent: #731211;
+  --background: #EAEODC;
+  --border-color: #ccc;
+  --text-light: #fff;
+  --text-dark: #293039;
+}
+
+/* Form Inputs */
+.find-room-form input,
+.find-room-form textarea,
+.find-room-form select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.find-room-form input:focus,
+.find-room-form textarea:focus,
+.find-room-form select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 5px rgba(153, 122, 128, 0.4);
+}
+
+/* Submit Button */
+.btn-submit {
+  background-color: var(--primary);
+  color: var(--text-light);
+  border: none;
+  padding: 0.7rem 2.2rem;
+  border-radius: 30px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: var(--accent);
+  box-shadow: 0 6px 12px rgba(115, 18, 17, 0.4);
+}
+
+/* QR Modal */
+.qr-trigger-link {
+  color: var(--accent);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.qr-trigger-link:hover {
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.qr-modal-content {
+  background-color: var(--background);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+}
+
+.qr-modal-header {
+  background-color: var(--primary);
+  color: white;
+  border-bottom: none;
+}
+
+/* Disclaimer */
+.disclaimer {
+  background-color: var(--background);
+  border-left: 5px solid var(--accent);
+  border-radius: 5px;
+  color: var(--text-dark);
+}

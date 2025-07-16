@@ -1,0 +1,15 @@
+{% extends "base_landlord.html" %}
+{% block content %}
+<div class="container my-5">
+  <h2>Inquiries from Tenants</h2>
+  {% for inquiry in inquiries %}
+    <div class="card my-3 p-3">
+      <h5>{{ inquiry.tenant.username }} inquired about {{ inquiry.property.title }}</h5>
+      <p>{{ inquiry.message }}</p>
+      <small>Sent on: {{ inquiry.created_at }}</small>
+    </div>
+  {% empty %}
+    <p>No inquiries yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

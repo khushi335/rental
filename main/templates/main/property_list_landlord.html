@@ -1,0 +1,55 @@
+{% extends 'base_landlord.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="property-title">Browse Properties</h1>
+
+<div class="property-container">
+    {% for property in properties %}
+    <div class="property-card">
+        {% if property.image %}
+            <img src="{{ property.image.url }}" alt="{{ property.category.name }}">
+        {% else %}
+            <img src="{% static 'images/default.jpg' %}" alt="No image">
+        {% endif %}
+
+        <div class="property-details">
+            <h3><a href="{% url 'property_detail' property.id %}">{{ property.category.name }}</a></h3>
+            <p class="location">{{ property.location }}</p>
+            <p class="price">Rs.{{ property.price }}</p>
+            <p>{{ property.description|truncatewords:20 }}</p>
+
+            {% if user.is_authenticated %}
+                <form action="{% url 'toggle_favorite' property.id %}" method="post" class="favorite-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="favorite-btn" title="Toggle Favorite">
+                        {% if property.is_favorited %}
+                            ❤️
+                        {% else %}
+                            🤍 
+                        {% endif %}
+                    </button>
+                </form>
+
+                {% if property.user_review %}
+                    <p class="user-review">⭐ {{ property.user_review.rating }} (Your Review)</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+        <p class="no-property">No properties available.</p>
+    {% endfor %}
+</div>
+
+<div class="pagination">
+    <span>Page {{ properties.number }} of {{ properties.paginator.num_pages }}</span><br>
+    {% if properties.has_previous %}
+        <a href="?page={{ properties.previous_page_number }}">Previous</a>
+    {% endif %}
+    {% if properties.has_next %}
+        <a href="?page={{ properties.next_page_number }}">Next</a>
+    {% endif %}
+</div>
+{% endblock %}

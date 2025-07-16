@@ -1,0 +1,19 @@
+{% extends "base_tenant.html" %}
+{% load static %}
+{% block title %}
+  About
+{% endblock title %}
+
+{% block content %}
+<!-- About Us Section -->
+<section class="about-us" id="about-us">
+  <div class="about-us-image">
+    <img src="{% static 'images/about_us.jpg' %}" alt="About Us Image">
+  </div>
+  <div class="about-us-content">
+    <h2>About Us</h2>
+    <p>We are dedicated to revolutionizing the way rentals work. Whether you're a landlord listing your space or a tenant finding your next home, our platform offers powerful tools, instant communication, and a seamless experience.</p>
+    <p>Our goal is simple: connect great homes with great people. No hassle. Just home.</p>
+  </div>
+</section>
+{% endblock content %}

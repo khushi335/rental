@@ -1,0 +1,342 @@
+:root {
+    --primary-color: #1d3557;
+    --accent-color: #e63946;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --border-color: #ddd;
+    --button-bg: #457b9d;
+    --button-hover: #1d3557;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --radius: 8px;
+}
+
+/* Reset & Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    border-radius: var(--radius);
+}
+
+/* Main Container */
+.property-detail-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+}
+
+/* Flex Layout */
+.property-main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Property Header */
+.property-header {
+    flex: 1 1 60%;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.image-box img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
+
+.info-box h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.info-box p {
+    margin: 0.3rem 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+.description {
+    margin-top: 1rem;
+    line-height: 1.5;
+}
+
+/* Favorite Button */
+.favorite-btn {
+    background-color: #fce1e4;
+    color: var(--accent-color);
+    border: none;
+    padding: 10px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.favorite-btn:hover {
+    background-color: #ffccd2;
+    transform: translateY(-2px);
+}
+
+/* Inquiry Form */
+.inquiry-form {
+    flex: 1 1 35%;
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.inquiry-form h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.inquiry-form form p {
+    margin-bottom: 1rem;
+}
+
+.inquiry-form input,
+.inquiry-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.inquiry-form button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: var(--button-bg);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.inquiry-form button:hover {
+    background-color: var(--button-hover);
+    transform: translateY(-2px);
+}
+
+/* Reviews */
+.reviews-section {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-top: 2rem;
+}
+
+.reviews-section h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.review-card {
+    border-bottom: 1px solid #eee;
+    padding: 1rem 0;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.avatar {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.review-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stars {
+    color: #f4c150;
+    font-size: 1rem;
+}
+
+.review-comment {
+    color: #555;
+    margin-top: 0.3rem;
+}
+
+.review-actions {
+    margin-top: 0.5rem;
+}
+
+.review-actions form {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.review-actions button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Leave Review */
+.leave-review-form {
+    margin-top: 2rem;
+    background-color: #fafafa;
+    padding: 1.2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+}
+
+.leave-review-form h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.submit-review-btn {
+    background-color: var(--button-bg);
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-review-btn:hover {
+    background-color: var(--button-hover);
+}
+
+/* Similar Properties */
+.similar-properties {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-top: 2rem;
+}
+
+.similar-properties h2 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.similar-grid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.similar-card {
+    flex: 1 1 220px;
+    background: #f1f1f1;
+    padding: 0.8rem;
+    border-radius: 6px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.similar-card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow);
+}
+
+.similar-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+}
+
+.similar-card h4 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin: 0.4rem 0;
+}
+
+.similar-card p {
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.btn-danger {
+  background-color: #e63946;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #b92a37;
+}

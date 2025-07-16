@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Dashboard{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/favorites.css' %}">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+  <link rel="stylesheet" href="{% static 'css/update_profile.css' %}">
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Round">
+</head>
+
+<body class="dashboard-bg">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+        <a href="{% url 'index' %}"><img src="{% static 'images/logo.jpg' %}" height="80" width="70" alt="Logo"></a>
+    </div>
+    <ul class="sidebar-menu">
+      <!-- <li><a href="#" class="{% if request.path == '/dashboard/' %}active{% endif %}"><i class="material-icons-round">dashboard</i> Dashboard</a></li> -->
+      <li><a href="{% url 'profile' %}" class="{% if request.path == '/profile/' %}active{% endif %}"><i class="material-icons-round">person</i> Profile</a></li>
+      <li><a href="{% url 'favorite_list' %}" class="{% if request.path == '/favourites/' %}active{% endif %}"><i class="material-icons-round">favorite</i> Favourites</a></li>
+      <li><a href="{% url 'tenant_shift_dashboard' %}" class="{% if request.path == '/tenant_shift_dashboard/' %}active{% endif %}"><i class="material-icons-round">local_shipping</i> Shift</a></li>
+      <li><a href="{% url 'user_reviews' %}" class="{% if request.path == '/user_reviews/' %}active{% endif %}"><i class="material-icons-round">rate_review</i> Reviews</a></li>
+      <li><a href="{% url 'tenant_dashboard' %}" class="{% if request.path == '/dashboard/' %}active{% endif %}"><i class="material-icons-round">dashboard</i> Dashboard</a></li>
+      <!-- <li><a href="#" class="{% if request.path == '/messages/' %}active{% endif %}"><i class="material-icons-round">message</i> Messages</a></li> -->
+      <li><a href="{% url 'password_reset' %}" class="{% if request.path == '/accounts/password_change/' %}active{% endif %}"><i class="material-icons-round">lock_reset</i> Password Reset</a></li>
+
+      <li><a href="{% url 'log_out' %}"><i class="material-icons-round">logout</i> Logout</a></li>
+    </ul>
+  </aside>
+  
+
+  <!-- Main content -->
+  <main class="main-content">
+    {% block maincontent %}
+    {% endblock maincontent %}
+  </main>
+</body>
+<script>
+function previewImage(event) {
+  const output = document.querySelector('.profile-picture img');
+  output.src = URL.createObjectURL(event.target.files[0]);
+  output.onload = () => URL.revokeObjectURL(output.src); // Free memory
+}
+</script>
+
+</html>

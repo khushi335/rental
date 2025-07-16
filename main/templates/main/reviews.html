@@ -1,0 +1,22 @@
+{% extends "profile_dashboard.html" %}
+{% load static %}
+
+{% block maincontent %}
+<div class="container mt-4">
+    <h2>Your Reviews</h2>
+    {% if reviews %}
+        <div class="reviews-list">
+            {% for review in reviews %}
+            <div class="review-card mb-4 p-3 border rounded shadow-sm">
+                <h4><a href="{% url 'property_detail' review.property.id %}" class="text-decoration-none text-primary">{{ review.property.title }}</a></h4>
+                <p><strong>Rating:</strong> ⭐ {{ review.rating }} / 5</p>
+                <p>{{ review.comment }}</p>
+                <small class="text-muted">Reviewed on {{ review.created_at|date:"F j, Y" }}</small>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't added any reviews yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

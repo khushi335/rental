@@ -1,0 +1,66 @@
+/* ========== Default Theme (Your Color Palette) ========== */
+:root {
+  --primary-color: #997A80;
+  --secondary-color: #293039;
+  --background-light: #EAEODC;
+  --background-alt: #A4B5C3;
+  --accent-color: #731211;
+  --white: #ffffff;
+  --text-dark: #222;
+}
+
+body {
+  background: var(--background-light);
+  color: var(--text-dark);
+  transition: background 0.3s, color 0.3s;
+}
+
+h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.theme-options label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.theme-options input {
+  margin-right: 10px;
+}
+
+.card {
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+/* ========== Dark Mode ========== */
+.dark-mode {
+  --primary-color: #d4b3b8;
+  --secondary-color: #1c1c1c;
+  --background-light: #181a1f;
+  --background-alt: #2e3742;
+  --accent-color: #ff3e3e;
+  --white: #2b2b2b;
+  --text-dark: #f5f5f5;
+}
+
+/* ========== Gradient Mode ========== */
+.gradient-mode {
+  --background-light: linear-gradient(to right, #997A80, #A4B5C3);
+  --text-dark: #ffffff;
+  --white: rgba(255, 255, 255, 0.1);
+}
+
+.material-icons-round {
+  margin-right: 6px;
+  font-size: 20px;
+  vertical-align: middle;
+}

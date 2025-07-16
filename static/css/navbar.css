@@ -1,0 +1,89 @@
+.navbar {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: #731211;
+    
+    /* ✅ Sticky navbar */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+}
+
+.nav-link:hover {
+    color: #DF7C8C !important; /* Pink hover effect */
+}
+
+.dropdown-menu {
+  animation: fadeIn 0.3s ease-in-out;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.dropdown-menu .dropdown-item {
+  padding: 0.6rem 1.2rem;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+form.d-flex input {
+    width: 250px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+form.d-flex button {
+    border-radius: 20px;
+    padding: 10px 15px;
+}
+
+/* for index */
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: #000;
+    border-radius: 50%;
+}
+
+/* ✅ Footer background match with navbar */
+footer {
+    background-color: #731211;
+    color: #fff;
+}
+
+/* ✅ Footer Social Media Icon Default and Hover */
+.footer-icon {
+    color: #ffffff; /* Light by default */
+    transition: transform 0.3s ease, color 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.footer-icon:hover {
+    transform: scale(1.2);
+    color: #DF7C8C; /* Pink on hover */
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RentEasy - Tenant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap & Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/favorites.css' %}">
+    <link rel="stylesheet" href="{% static 'css/property_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/property_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/find_me_room.css' %}">
+    <link rel="stylesheet" href="{% static 'css/shift_home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/legal_pages.css' %}">
+</head>
+<body>
+
+<!-- Tenant Navbar -->
+<nav class="navbar navbar-expand-lg px-3">
+    <a href="{% url 'index' %}"><img src="{% static 'images/logo.jpg' %}" height="80" width="70" alt="Logo"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link text-light" href="{% url 'property_list' %}">Browse Properties</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="{% url 'find_me_room' %}">Find Me Room</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="{% url 'shift_home' %}">Shift Home</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+
+        <form class="d-flex" method="GET" action="{% url 'property_list' %}">
+            <input class="form-control me-2" type="search" name="q" placeholder="Search properties...">
+            <button class="btn btn-warning" type="submit">Search</button>
+        </form>
+
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              {% if request.user.is_authenticated %}
+              <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% if request.user.profile.profile_picture %}{{ request.user.profile.profile_picture.url }}{% else %}{% static 'images/avtar.jpg' %}{% endif %}" alt="Profile Picture" class="rounded-circle border border-primary" width="45" height="45">
+                <span class="d-none d-md-inline text-light">{{ request.user.username }}</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                <li><a class="dropdown-item" href="{% url 'update_profile' %}"><i class="fas fa-user me-2 text-primary"></i>Profile</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2 text-secondary"></i>Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="{% url 'log_out' %}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+              </ul>
+              {% else %}
+              <a class="nav-link text-light" href="{% url 'log_in' %}"><i class="fa fa-lock"></i> Login</a>
+              {% endif %}
+          </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ✅ Django Messages -->
+{% if messages %}
+  <div id="message-container" class="container mt-3">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<!-- Page-Specific Content -->
+{% block content %}{% endblock content %}
+
+<!-- Footer Section -->
+<footer class="footer mt-5 py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <h5 class="text-uppercase" style="color: var(--highlight);">Rental</h5>
+        <p class="small">Rental is dedicated to making your rental journey simple and stress-free. Find rooms, flats, and homes with ease.</p>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <h6 class="text-uppercase" style="color: var(--highlight);">Quick Links</h6>
+        <ul class="list-unstyled">
+          <li><a href="{% url 'index' %}" class="footer-link">Home</a></li>
+          <li><a href="{% url 'about_us' %}" class="footer-link">About Us</a></li>
+          <li><a href="{% url 'find_me_room' %}" class="footer-link">Find Me Room</a></li>
+          <li><a href="{% url 'shift_home' %}" class="footer-link">Shift Home</a></li>
+          <li><a href="{% url 'contact' %}" class="footer-link">Contact</a></li>
+          <li><a href="{% url 'privacy_policy' %}" class="footer-link">Privacy Policy</a></li>
+          <li><a href="{% url 'terms_and_conditions' %}" class="footer-link">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <h6 class="text-uppercase" style="color: var(--highlight);">Contact Us</h6>
+        <p class="small mb-1"><i class="fa-solid fa-phone"></i> <a href="tel:+9779821837931" class="footer-link">+977-9821837931</a></p>
+        <p class="small mb-1"><i class="fa-solid fa-envelope"></i> <a href="mailto:skhushi0218@gmail.com" class="footer-link">skhushi0218@gmail.com</a></p>
+        <p class="small mb-1"><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/9779821837931" target="_blank" class="footer-link">Chat on WhatsApp</a></p>
+        <div class="d-flex gap-3 mt-2">
+          <a href="https://www.facebook.com/khushikalwar18" class="footer-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://wa.me/9779821837931" class="footer-icon" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" class="footer-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr style="border-color: var(--accent-bg);">
+    <div class="text-center small">
+      &copy; {{ now|date:"Y" }} YourRentalSpace. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Auto-dismiss flash messages -->
+<script>
+  setTimeout(function() {
+    var msgContainer = document.getElementById('message-container');
+    if (msgContainer) {
+      msgContainer.style.transition = "opacity 0.8s";
+      msgContainer.style.opacity = "0";
+      setTimeout(() => msgContainer.remove(), 1000);
+    }
+  }, 5000);
+</script>
+
+</body>
+</html>

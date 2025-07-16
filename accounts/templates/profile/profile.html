@@ -1,0 +1,36 @@
+{% extends 'profile_dashboard.html' %}
+{% load static %}
+
+{% block maincontent %}
+<div class="container-fluid profile-container">
+  <div class="card profile-card shadow">
+    <div class="row g-4 align-items-center">
+      
+      <!-- Left: Profile picture and name -->
+      <div class="col-md-4 text-center profile-left">
+        <div class="profile-img-wrapper mb-3">
+          {% if request.user.profile.profile_picture %}
+            <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture" class="profile-img img-thumbnail">
+          {% else %}
+            <img src="{% static 'images/avtar.jpg' %}" alt="Default Profile Picture" class="profile-img img-thumbnail">
+          {% endif %}
+        </div>
+        <h4 class="username text-primary">@{{ user.username }}</h4>
+        <a href="{% url 'update_profile' %}" class="btn btn-update mt-2">Update Profile</a>
+      </div>
+
+      <!-- Right: User details -->
+      <div class="col-md-8">
+        <div class="user-info">
+          <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+          <p><strong>Bio:</strong> {{ request.user.profile.bio|default:"Not provided" }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Phone:</strong> {{ user.phone }}</p>
+          <p><strong>Address:</strong> {{ user.address }}</p>
+          <p><strong>Date of Birth:</strong> {{ request.user.profile.dob|date:"F d, Y" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock maincontent %}

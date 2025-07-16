@@ -1,0 +1,50 @@
+{% extends "profile_dashboard.html" %}
+{% load static %}
+{% block maincontent %}
+
+<!-- Link to external CSS -->
+<link rel="stylesheet" href="{% static 'css/favorites.css' %}">
+
+<div class="favorites-container">
+    <h2 class="favorites-title">My Favorite Properties</h2>
+
+    {% if favorites %}
+        <div class="favorites-grid">
+            {% for fav in favorites %}
+                {% with prop=fav.property %}
+                    <div class="favorite-card">
+                        {% if prop.image %}
+                            <img src="{{ prop.image.url }}" alt="{{ prop.title }}" class="favorite-image">
+                        {% else %}
+                            <img src="{% static 'images/default.jpg' %}" alt="No Image" class="favorite-image">
+                        {% endif %}
+
+                        <div class="favorite-details">
+                            <h4>{{ prop.title }}</h4>
+                            <p><strong>Location:</strong> {{ prop.location }}</p>
+                            <p><strong>Price:</strong> ₹{{ prop.price }}</p>
+                            <p class="favorite-description">{{ prop.description|truncatewords:15 }}</p>
+                            <a href="{% url 'property_detail' prop.id %}" class="view-link">View Details</a>
+
+                            <form method="POST" action="{% url 'toggle_favorite' prop.id %}" onsubmit="return confirmRemove();">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-btn">❤️ Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="no-favorites">You have no favorite properties yet.</p>
+    {% endif %}
+</div>
+
+<!-- Confirmation popup script -->
+<script>
+function confirmRemove() {
+    return confirm("Are you sure you want to remove this property from your favorites?");
+}
+</script>
+
+{% endblock %}

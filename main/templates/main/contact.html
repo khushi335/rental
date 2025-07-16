@@ -1,0 +1,57 @@
+{% extends "base_tenant.html" %}
+{% load static %}
+
+{% block title %}Contact{% endblock title %}
+
+{% block content %}
+<section class="contact-section">
+   <div class="contact-header text-center">
+      <h1>Our Contact</h1>
+      <p class="subtext">GET IN TOUCH</p>
+      <p><span class="highlight">Our Friendly Team</span> would love to hear from you</p>
+   </div>
+
+   <div class="container contact-info">
+      <div class="row">
+         <div class="col-md-4 info-card">
+            <h3><i class="fa-solid fa-location-dot"></i> LOCATION</h3>
+            <p>Balkumari,Lalitpur, Nepal</p>
+         </div>
+         <div class="col-md-4 info-card">
+            <h3><i class="fa-solid fa-phone"></i> PHONE</h3>
+            <p>(+977) 9821837931</p>
+         </div>
+         <div class="col-md-4 info-card">
+            <h3><i class="fa-solid fa-envelope"></i> EMAIL</h3>
+            <p>rental@gmail.com</p>
+         </div>
+      </div>
+   </div>
+
+   <div class="container-fluid form-map-container">
+      <div class="row">
+         <!-- Contact Form -->
+         <div class="col-md-6 contact-form">
+            <form method="POST" action="{% url 'contact' %}">
+               {% csrf_token %}
+               <h2>Get In Touch</h2>
+               <input required type="text" name="name" placeholder="Your Name">
+               <input required type="email" name="email" placeholder="Your Email">
+               <input required type="tel" name="phone" placeholder="Your Phone Number">
+               <textarea required name="message" rows="6" placeholder="Your Message"></textarea>
+               <button type="submit">Send Message</button>
+            </form>
+         </div>
+
+         <!-- Google Map -->
+         <div class="col-md-6 map-container">
+            <h2 class="map-title">Our Location</h2>
+            <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.493602753261!2d85.3377302154204!3d27.672961832180953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb190bc33e96a1%3A0x4c2b57b84b1bc5cb!2sBalkumari%2C%20Lalitpur!5e0!3m2!1sen!2snp!4v1719346570000"
+            width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+         </div>
+      </div>
+   </div>
+</section>
+{% endblock content %}

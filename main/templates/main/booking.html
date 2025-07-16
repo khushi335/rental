@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <div class="container mt-5">
+    <h2>Book This Property</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Message to Landlord:</label>
+        <textarea name="message" class="form-control" required></textarea>
+        <button type="submit" class="btn btn-success mt-3">Send Inquiry</button>
+    </form>
+</div>
+{% endblock content %}

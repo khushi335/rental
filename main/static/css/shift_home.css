@@ -1,0 +1,114 @@
+:root {
+  --primary: #997A80;
+  --secondary: #293039;
+  --background: #EAE0DC;
+  --accent: #731211;
+  --text-dark: #293039;
+  --text-light: #fff;
+  --border-color: #ccc;
+}
+
+.shift-home-quote {
+  background: var(--background);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(41, 48, 57, 0.15);
+  max-width: 960px;
+  margin: auto;
+  color: var(--text-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.shift-home-quote h2 {
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--secondary);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 7px;
+  font-size: 1.05rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 7px var(--primary);
+}
+
+input[type="radio"] {
+  margin-right: 0.6rem;
+  accent-color: var(--primary);
+}
+
+.btn-submit {
+  background-color: var(--primary);
+  border: none;
+  color: var(--text-light);
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 0.9rem 3rem;
+  border-radius: 35px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 12px rgba(153, 122, 128, 0.5);
+}
+
+.btn-submit:hover {
+  background-color: var(--accent);
+  box-shadow: 0 7px 16px rgba(115, 18, 17, 0.7);
+}
+
+@media (max-width: 768px) {
+  .row {
+    display: block;
+  }
+  .col-md-6 {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+}
+
+.text-danger {
+  font-size: 0.9rem;
+  color: #dc3545;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.85rem 1.25rem;
+  border-radius: 6px;
+  margin-bottom: 1.25rem;
+  border: 1px solid #c3e6cb;
+  font-weight: 600;
+}

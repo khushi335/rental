@@ -1,0 +1,169 @@
+{% extends "base_tenant.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- Banner Section -->
+<section class="shift-banner text-center py-5">
+  <div class="container">
+    <h1 class="text-center mb-4" style="color: var(--primary); font-weight: 700;">Shift Your Home Hassle-Free</h1>
+    <p class="lead">Reliable, fast and safe shifting service tailored just for you</p>
+  </div>
+</section>
+<hr class="section-divider">
+
+<!-- How It Works Section -->
+<section class="container my-5">
+  <h2 class="text-center mb-4" style="color: var(--primary); font-weight: 700;">How It Works</h2>
+  <div class="row text-center">
+    <div class="col-md-3 step-card">
+      <img src="{% static 'images/book.png' %}" alt="Book" class="step-icon">
+      <h5>Book</h5>
+      <p>Submit the request form</p>
+    </div>
+    <div class="col-md-3 step-card">
+      <img src="{% static 'images/pack.png' %}" alt="Pack" class="step-icon">
+      <h5>Pack</h5>
+      <p>We carefully pack your items</p>
+    </div>
+    <div class="col-md-3 step-card">
+      <img src="{% static 'images/shift.png' %}" alt="Shift" class="step-icon">
+      <h5>Shift</h5>
+      <p>Items shifted safely</p>
+    </div>
+    <div class="col-md-3 step-card">
+      <img src="{% static 'images/unpack.png' %}" alt="Unpack" class="step-icon">
+      <h5>Unpack</h5>
+      <p>Unpack and settle in</p>
+    </div>
+  </div>
+</section>
+<hr class="section-divider">
+<!-- Shift Request Form -->
+<div class="container shift-home-quote my-5" id="shift_home">
+  <h2 class="text-center mb-4">Please fill all the details</h2>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} text-center">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="row">
+      <!-- Left Column -->
+      <div class="col-md-6">
+        <h5>Main Info</h5>
+        {% for field in form.visible_fields %}
+          {% if field.name in main_info_fields %}
+            <div class="form-group mb-3">
+              {{ field.label_tag }} {{ field }}
+              {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        <h5 class="mt-4">Item Counts</h5>
+        {% for field in form.visible_fields %}
+          {% if field.name in item_fields %}
+            <div class="form-group mb-2">
+              {{ field.label_tag }} {{ field }}
+              {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <!-- Right Column -->
+      <div class="col-md-6">
+        <h5>Location Details</h5>
+        {% for field in form.visible_fields %}
+          {% if field.name in location_fields %}
+            <div class="form-group mb-3">
+              {{ field.label_tag }} {{ field }}
+              {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        <h5 class="mt-4">Booking Time</h5>
+        {% for field in form.visible_fields %}
+          {% if field.name in booking_time_fields %}
+            <div class="form-group mb-3">
+              {{ field.label_tag }} {{ field }}
+              {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        <h5 class="mt-4">Uploads</h5>
+
+        <!-- QR Code Trigger -->
+        <div class="form-group mb-3">
+          <a href="#" class="fw-bold qr-trigger-link" data-bs-toggle="modal" data-bs-target="#qrModal">
+            Get QR Code to scan (optional)
+          </a>
+        </div>
+
+        <!-- Required Deposit Slip Upload -->
+        {% for field in form.visible_fields %}
+          {% if field.name == 'deposit_slip' %}
+            <div class="form-group mb-3">
+              <label for="{{ field.id_for_label }}">{{ field.label }} <span style="color:red">*</span></label>
+              {{ field }}
+              {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        <!-- Optional Message Field -->
+        {% for field in form.visible_fields %}
+          {% if field.name == 'message' %}
+            <div class="form-group mb-3">
+              {{ field.label_tag }} {{ field }}
+              {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-submit mt-4">Ask For Shift</button>
+    </div>
+  </form>
+</div>
+
+<!-- QR Code Modal -->
+<div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content qr-modal-content">
+      <div class="modal-header qr-modal-header">
+        <h5 class="modal-title" id="qrModalLabel">Scan the QR Code</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <img src="{% static 'images/fixed_qr.jpg' %}" alt="QR Code" class="img-fluid rounded shadow mb-3" style="max-width: 240px;">
+        <p class="text-muted">Scan this code to connect with us directly for faster response.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

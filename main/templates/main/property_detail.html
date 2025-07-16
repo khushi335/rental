@@ -1,0 +1,131 @@
+{% extends 'base_tenant.html' %}
+{% load static %}
+
+{% block content %}
+<div class="property-detail-container">
+
+    <!-- Main Content Flex Wrapper -->
+    <div class="property-main-content">
+
+        <!-- Property Image & Basic Info -->
+        <div class="property-header">
+            <div class="image-box">
+                {% if property.image %}
+                    <img src="{{ property.image.url }}" alt="{{ property.title }}">
+                {% else %}
+                    <img src="{% static 'images/default.jpg' %}" alt="No image">
+                {% endif %}
+            </div>
+
+            <div class="info-box">
+                <h1>{{ property.title }}</h1>
+                <p><strong>Category:</strong> {{ property.category.name }}</p>
+                <p><strong>Location:</strong> {{ property.location }}</p>
+                <p><strong>Price:</strong> Rs.{{ property.price }}</p>
+                <p><strong>Available From:</strong> {{ property.available_date|date:"F j, Y" }}</p>
+                <p class="description">{{ property.description }}</p>
+
+                {% if user.is_authenticated %}
+                <form action="{% url 'toggle_favorite' property.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="favorite-btn" title="Toggle Favorite">
+                        {% if property.is_favorited %}
+                            ❤️ Remove from Favorites
+                        {% else %}
+                            🤍 Add to Favorites
+                        {% endif %}
+                    </button>
+                </form>
+
+                <!-- Report fraudulent content form -->
+                <form action="{% url 'report_property' property.id %}" method="post" class="report-form" style="margin-top: 1rem;">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                    <button type="submit" class="favorite-btn" 
+                        style="background-color: var(--accent-color); color: white; border: none; margin-top: 10px;"
+                        title="Report this property as fraudulent">
+                        🚩 Report this property
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Inquiry Form on right -->
+        <div class="inquiry-form">
+            <h2>Send Inquiry</h2>
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ inquiry_form.as_p }}
+                <button type="submit" name="inquiry_submit">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <h2>Reviews</h2>
+
+            {% if reviews %}
+                {% for review in reviews %}
+                <div class="review-card {% if review.user == user %}user-review{% endif %}">
+                    <div class="review-header">
+                        <div class="avatar">{{ review.user.username|first|upper }}</div>
+                        <div class="review-info">
+                            <strong>{{ review.user.username }}</strong>
+                            <div class="stars">⭐ {{ review.rating }} / 5</div>
+                        </div>
+                    </div>
+                    <p class="review-comment">{{ review.comment }}</p>
+
+                    {% if review.user == user %}
+                    <div class="review-actions">
+                        <form method="post" action="{% url 'delete_review' property.id %}" onsubmit="return confirm('Delete this review?');">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-btn">🗑️ Delete</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No reviews yet.</p>
+            {% endif %}
+
+            <!-- Leave Review Form -->
+            {% if not user_review %}
+            <div class="leave-review-form">
+                <h3>Leave a Review</h3>
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {{ review_form.as_p }}
+                    <button type="submit" name="review_submit" class="submit-review-btn">Submit Review</button>
+                </form>
+            </div>
+            {% else %}
+                <p><strong>✅ You have already reviewed this property.</strong></p>
+            {% endif %}
+        </div>
+
+        <!-- Similar Properties -->
+        <div class="similar-properties">
+            <h2>Similar Properties</h2>
+            <div class="similar-grid">
+                {% for sim in similar_properties %}
+                <div class="similar-card">
+                    {% if sim.image %}
+                        <img src="{{ sim.image.url }}" alt="{{ sim.title }}">
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" alt="No image">
+                    {% endif %}
+                    <h4><a href="{% url 'property_detail' sim.id %}">{{ sim.title }}</a></h4>
+                    <p>{{ sim.location }}</p>
+                    <p>Rs.{{ sim.price }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

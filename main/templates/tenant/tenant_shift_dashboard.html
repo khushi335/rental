@@ -1,0 +1,43 @@
+{% extends "base_tenant.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/tenant_dashboard.css' %}">
+
+<div class="container my-5">
+    <h3 class="dashboard-title">Your Shift Requests</h3>
+
+    <table class="table custom-table">
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for req in shift_requests %}
+            <tr>
+                <td>{{ req.from_location }}</td>
+                <td>{{ req.to_location }}</td>
+                <td>{{ req.schedule_date }}</td>
+                <td>{{ req.schedule_time }}</td>
+                <td>{{ req.status }}
+                    {% if req.status == 'approved' %}
+                        <span class="badge status-approved">Approved</span>
+                    {% elif req.status == 'rejected' %}
+                        <span class="badge status-rejected">Rejected</span>
+                    {% else %}
+                        <span class="badge status-pending">Pending</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="5" class="text-center no-requests">No shift requests found</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
